@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apple</title>
+    <style>
+        body{
+            text-align:center;
+            background:black;
+             background-size:cover;
+            
+        }
+        div{
+            width:100%;
+            position:absolute;
+            left:0;
+            bottom:0;
+        }
+        p{
+            margin-top:300px;
+            color:white;
+            font-size:30px;
+        }
+    </style>
+    <script>
+        function getPos(obj){
+            var l=0;
+            var t=0;
+            while(obj){
+                l+=obj.offsetLeft;
+                t+=obj.offsetTop;
+                obj=obj.offsetParent;
+            }
+            return{left:l,top:t} ;
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aImg=oBox.children;
+            document.onmousemove=function(ev){
+                var oEvent=ev||event;
+                //循环求出每一张图片距离当前鼠标的距离
+                for(var i=0;i<aImg.length;i++){
+                    var a=aImg[i].offsetLeft+aImg[i].offsetWidth/2-oEvent.clientX;
+                    var b=getPos(aImg[i]).top+aImg[i].offsetHeight/2-oEvent.clientY;
+                    var c=Math.sqrt(a*a+b*b);
+                    var scale=1-c/500;
+                    scale<0.5&&(scale=0.5);
+                    aImg[i].style.width=scale*128+'px';
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+<p>鼠标移入试试效果&nbsp;&nbsp;↓</p>
+<div id="box">
+    <img src="../img/apple/1.png" width="64">
+    <img src="../img/apple/2.png" width="64">
+    <img src="../img/apple/3.png" width="64">
+    <img src="../img/apple/4.png" width="64">
+    <img src="../img/apple/5.png" width="64">
+</div>
+
+</body>
+</html>

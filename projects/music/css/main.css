@@ -1,0 +1,213 @@
+html{
+	height: 100%;
+}
+
+body{
+	height: 100%;
+	margin: 0;
+	user-select:none;
+}
+
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/*content-wrapper*/
+.content-wrapper{
+	display: flex;
+	height: 70%
+}
+
+.play-list{
+	height: 100%;
+	padding: 20px;
+	flex:1;
+}
+
+.play-list > li{
+	border-bottom: 1px solid #4d4d4d;
+	padding: 10px 4px;
+	cursor: pointer;
+}
+
+.song.active{
+	color: #0170FF;
+}
+
+.song.active:before{
+	content:"🎼            "
+}
+
+.lrc{
+	margin: 20px;
+	flex:1;
+	border-radius: 4px;
+	padding: 20px;
+	box-shadow: inset 0 0 10px grey;
+	height: 100%;
+	text-align: center;
+	overflow: hidden;
+}
+
+.lrc > ul{
+	transform: translateY(200px);
+	transition:0.4s;
+}
+
+.lrc > ul > li{
+	padding: 2px 0;
+}
+
+.lrc > ul > li.active{
+	color: #0170FF;
+}
+
+.panel{
+	width: 100%;
+	height: 60px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: flex;
+	align-items:center;
+	border-top: 2px solid #0170FF;
+}
+
+.status .play{
+	display: block;
+}
+
+.status .paused{
+	display: none;
+}
+
+.status.active .play{
+	display: none;
+}
+
+.status.active .paused{
+	display: block;
+}
+
+/*previous*/
+.previous,.next{
+	width: 30px;
+	height: 30px;
+}
+
+.previous > img,
+.next > img,
+.status > img {
+	width: 100%;
+}
+
+
+.status{
+	width: 50px;
+	height: 50px;
+}
+
+/*progress bar*/
+.progress{
+	width: 300px;
+	height: 6px;
+	position: relative;
+	background-color: grey;
+	border-radius: 3px;
+}
+
+.progress > .inner{
+	background-color: #0170FF;
+	height: 100%;
+	border-radius: 3px;
+	width: 0;
+}
+
+.dot{
+	width: 20px;
+	height: 20px;
+	background-color: white;
+	box-shadow: 0 0 3px #0170FF;
+	margin-top: -13px;
+	border-radius: 50%;
+	position: relative;
+}
+
+.dot:before{
+	content: ' ';
+	width: 4px;
+	height: 4px;
+	background-color: #0170FF;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform:translate(-50%,-50%);
+	border-radius: 50%;
+}
+
+/*time*/
+.time{
+	width: 100px;
+	margin: 0 20px;
+	color: #AAA;
+	font-size: 14px;
+	font-weight: bolder;
+}
+
+
+/*volume*/
+.volume{
+	display: flex;
+}
+
+.volume > .icon{
+	width: 40px;
+	height: 40px;
+}
+
+.volume > .icon > img{
+	width: 100%;
+}
+
+.volume > input{
+	width: 80px;
+}
+
+.volume > .icon > .muted{
+	display: block;
+}
+.volume > .icon > .up{
+	display: none;
+}
+
+.volume.active > .icon > .muted{
+	display: none;
+}
+.volume.active > .icon > .up{
+	display: block;
+}
+
+
+/*mode*/
+.mode{
+	width: 20px;
+	height: 20px;
+	margin: 0 20px;
+}
+
+.mode.list-repeat:before{
+	content: "♻️";
+	line-height: 20px;
+}
+
+.mode.single-repeat:before{
+	content: "💫";
+	line-height: 20px;
+}
+
+.mode.random:before{
+	content: "🎲";
+	line-height: 20px;
+}

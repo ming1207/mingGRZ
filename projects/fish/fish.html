@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			margin: 0;
+			font-size: 0;
+			background:black;
+		}
+
+		canvas{
+			background-image: url(statics/img/game_bg_2_hd.jpg);
+			
+		}
+	</style>
+</head>
+<body>
+<canvas width="800" height="600">
+您的浏览器版本过低，请下载chrome或其他高版本浏览器
+</canvas>
+<script src="js/common.js"></script>
+<script src="js/resource.js"></script>
+<script src="js/fish.js"></script>
+<script src="js/cannon.js"></script>
+<script src="js/bullet.js"></script>
+<script src="js/net.js"></script>
+<script src="js/coin.js"></script>
+<script>
+const oC = document.querySelector('canvas');
+const ctx = oC.getContext('2d');
+
+let bulletArray = [];
+let fishArray = [];
+let netArray = [];
+let dieFishArray = []
+let coinArray = [];
+let scores = 0;
+let scoreArr = [];
+
+const distance = 70;
+var COIN_TEXT = [
+	{x:21},
+	{x:43},
+	{x:65},
+	{x:87},
+	{x:112},
+	{x:135}
+]
+
+function setScore(){
+	// scores
+	const scoreStr = addZero(scores);
+	scoreArr = scoreStr.split('');
+}
+
+setScore();
+
+function addZero(number){
+	let numberStr = ''+number;
+	let length = numberStr.length;
+
+	if( length > 6 ){
+		return '999999';
+	}
+
+	for( let i = 0; i< 6-length;i++ ){
+		numberStr = '0' + numberStr
+	}
+
+	return numberStr;
+}
+
+loadStatics(resource,() => {
+	let cannon = new Cannon(7);
+
+	setInterval(() => {
+		ctx.clearRect(0,0,oC.width,oC.height);
+
+		// 产生鱼
+		if( Math.random() < 0.04 ){    //aa  数字变大，鱼就多了
+				const fish = new Fish(rnd(1,6));
+
+				if( Math.random() > 0.5 ){
+					
+					// 左边出鱼
+					fish.x = - distance;
+					fish.rotate = rndSign()*rnd(0,45)
+				} else {
+
+					// 右边出鱼
+					fish.x = oC.width + distance;
+					fish.rotate = rnd(135,255)
+				}
+
+				fish.y = rnd(distance,oC.height - distance);
+
+			fishArray.push(fish);
+		}
+
+		fishArray.forEach((fish,fishIndex) => {
+			bulletArray.forEach((bullet,bulletIndex)=>{
+				if( !fish || !bullet ) return;
+
+				if( fish.isIn(bullet.x,bullet.y) ){
+					fish.destory();
+					bullet.destory();
+
+					fishArray[fishIndex] = null;
+					bulletArray[bulletIndex] = null;
+
+					// 打到鱼了
+
+					// 产生网
+					let net = new Net(cannon.kind);
+					net.x = bullet.x;
+					net.y = bullet.y;
+
+					netArray.push(net);
+
+					// 产生死鱼
+					let dieFish = new DieFish(fish.kind);
+					dieFish.x = fish.x;
+					dieFish.y = fish.y;
+					dieFish.rotate = fish.rotate;
+
+					dieFishArray.push(dieFish);
+
+					setTimeout(() => {
+						dieFishArray.shift().destory();
+						netArray.shift()
+
+						// 产生金币
+						const coin = new Coin(
+							dieFish.kind > 3 ? 2 : 1
+						)
+
+						setTimeout(() => {
+							scores += dieFish.kind > 3 ? 10 : 1;
+							setScore();
+						},2000)
+
+						coin.x = dieFish.x;
+						coin.y = dieFish.y;
+
+						coinArray.push(coin);
+					},1000)
+				}
+			})
+		})
+
+		fishArray = fishArray.filter(fish => {
+			if( !fish ) return false;
+
+			fish.draw();
+
+			if(
+				fish.x < - distance || 
+				fish.x > oC.width + distance || 
+				fish.y < - distance ||
+				fish.y > oC.height + distance 
+			){
+				fish.destory();
+				return false;
+			} else {
+				return true
+			}
+		})
+
+		// 画死鱼
+		dieFishArray.forEach(
+			dieFish => dieFish.draw()
+		)
+
+		// 画网
+		netArray.forEach(net => net.draw())
+		// 画钱
+		coinArray = coinArray.filter(coin => {
+			coin.draw();
+
+			if( coin.finished ){
+				coin.destory();
+			}
+
+			return !coin.finished;
+		})
+
+		// 炮台
+		ctx.drawImage(statics.bottom,
+			0,0,765,70,
+			0,532,765,70
+		)
+
+		// 分数
+		scoreArr.forEach((number,index) => {
+			console.log(number);
+			ctx.drawImage(statics.coinText,
+				number*36,0,36,49,
+				COIN_TEXT[index].x,570,18,24
+			)
+		})
+
+		// 画子弹
+		bulletArray = bulletArray.filter(bullet => {
+			
+			if( !bullet ) return false;
+
+			bullet.draw();
+
+			if(
+				bullet.x < - distance || 
+				bullet.x > oC.width + distance || 
+				bullet.y < - distance ||
+				bullet.y > oC.height + distance
+			){
+				bullet.destory();
+				return false;
+			} else {
+				return true;
+			}
+		})
+
+		// 画炮
+		cannon.draw();
+
+		oC.onclick = ({
+			clientX,clientY
+		}) => {
+			const deltaX = clientX - cannon.x;
+			const deltaY = cannon.y - clientY;
+
+			const rotate = Math.atan2(deltaX,deltaY);
+
+			// 发射
+			cannon.rotate = r2d(rotate);
+			cannon.emit();
+
+			let bullet = new Bullet(cannon.kind);
+			bullet.x = cannon.x;
+			bullet.y = cannon.y;
+			bullet.rotate = cannon.rotate;
+
+			bulletArray.push(bullet);
+		}
+	},16)
+
+	document.onkeydown = ({ key }) => {
+		if( key == 'ArrowUp' ){
+			let kind = cannon.kind + 1;
+			if( kind == 8 ) kind = 1;
+
+			cannon = new Cannon(kind);
+		} else if( key == 'ArrowDown' ){
+			let kind = cannon.kind - 1;
+			if( kind == 0 ) kind = 7;
+			
+			cannon = new Cannon(kind);
+		}
+	}
+})
+</script>
+</body>
+</html>

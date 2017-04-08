@@ -1,0 +1,12 @@
+.panel{
+	flex:1;
+}
+
+.items-wrapper{
+	height: 300px;
+	overflow-y: auto;
+}
+
+.info{
+	color: #666
+}

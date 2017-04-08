@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background-color: black;
+			color:white;
+			text-align:center;
+			font-size:20px;
+		}
+		span{
+			color:red;
+			font-size:18px;
+			font-weight: bold
+		}
+		canvas{
+			background-color: white;
+			display: block;
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	
+	<canvas width="600" height="400"></canvas>
+	tip:  按下键盘 <span>↑ ↓ ← → </span>控制动画
+	<script>
+		const oC = document.querySelector('canvas');
+		const ctx = oC.getContext('2d');
+
+		let oImage = new Image();
+		let currentIndex = 0;
+
+		let direction = 0;
+
+		let offsetLeft = 0
+		let offsetTop = 0;
+
+		let timer = 0;
+
+		oImage.src = "2d-2.png";
+
+		oImage.onload = function(){
+
+			setInterval(() => {
+				ctx.clearRect(0,0,oC.width,oC.height);  //AA为什么不beginPath???没有路径，不用写，有路径的时候才会写
+
+				ctx.drawImage(oImage,
+					currentIndex * 96,direction*96,96,96,
+					offsetLeft,offsetTop,96,96
+				);//(9个参数分别为image 图片的x y w h;画布的x y w h)
+
+				currentIndex++;
+
+				if( currentIndex >= 4){
+					currentIndex = 0;
+				}
+			},60)
+		}
+
+		document.onkeydown = function({key}){
+			if( timer  ) return;
+			
+			switch(key){
+				case "ArrowLeft":direction = 1;break;
+				case "ArrowRight":direction = 2;break;
+				case "ArrowUp":direction = 3;break;
+				case "ArrowDown":direction = 0;break;
+				default:return;
+			}
+
+			timer = setInterval(() => {
+				switch(direction){
+					case 0:offsetTop+=2;break;
+					case 1:offsetLeft-=2;break;
+					case 2:offsetLeft+=2;break;
+					case 3:offsetTop-=2;break;
+				}
+			},20)
+		}
+
+		document.onkeyup = function(){
+			clearInterval(timer)
+			direction = 0;
+			timer = 0;
+		}
+	</script>
+</body>
+</html>

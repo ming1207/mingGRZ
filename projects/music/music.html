@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<audio src=""></audio>
+	<div class="content-wrapper">
+		<ul class="play-list">
+		</ul>
+		<div class="lrc">
+			<ul>
+			</ul>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="previous">
+			<img src="statics/player/previous.png" alt="">
+		</div>
+		<div class="status">
+			<img src="statics/player/play.png" alt="" class="play">
+			<img src="statics/player/pause.png" alt="" class="paused">
+		</div>
+		<div class="next">
+			<img src="statics/player/next.png" alt="">
+		</div>
+		<div class="progress">
+			<div class="inner"></div>
+			<div class="dot"></div>
+		</div>
+		<div class="time">--/--</div>
+		<div class="mode ">
+		</div>
+		<div class="volume active">
+			<div class="icon">
+				<img src="statics/player/volume-up.png" alt="" class="up">
+				<img src="statics/player/muted.png" alt="" class="muted">
+			</div>
+			<input 
+				type="range" 
+				min="0" max="100" value="100" id="volume">
+		</div>
+	</div>
+	<script src="libs/jquery.js"></script>
+	<script src="js/vendor.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

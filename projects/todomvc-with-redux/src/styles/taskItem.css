@@ -1,0 +1,28 @@
+.item-wrapper{
+	width: 90%;
+	display: flex;
+	align-items:center;
+	margin: 10px auto;
+	padding: 4px;
+	box-shadow: 0 0 2px grey;
+	box-sizing: border-box;
+}
+
+.message,
+.editing-field{
+	flex:1;
+	margin-left: 10px;
+}
+
+.done-task{
+	text-decoration: line-through;
+	color: grey;
+}
+
+.icon-cancel{
+	color: red;
+}
+
+.icon-checkmark.done-item{
+	color: green;
+}

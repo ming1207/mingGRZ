@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background-color: black;
+		}
+
+		.container{
+			width: 735px;
+			height: 78px;
+			margin: 100px auto;
+		}
+
+		.navigator{
+			width: 735px;
+			height: 78px;
+			background-image: url(bac.png);
+			position: relative;
+		}
+
+		ul,li{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul{
+			display: flex;
+			padding-left: 100px;
+			position: absolute;
+			left: 0;
+		}
+
+		li{
+			width: 96px;
+			height: 76px;
+			line-height: 66px;
+			font-size: 20px;
+			font-weight: bolder;
+			text-align: center;
+			color: white;
+		}
+
+		.slider{
+			width: 96px;
+			height: 76px;
+			position: absolute;
+			left: 100px;
+			top: 0;
+			background-image: url(slider.png);
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="navigator">
+			<div class="slider"></div>
+			<ul>
+				<li>首页</li>
+				<li>公告</li>
+				<li>活动</li>
+				<li>新闻</li>
+				<li>详情</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		function elastic(obj,dest){
+			clearInterval(obj.timer);
+			var speed = 1;
+
+			obj.timer = setInterval(function(){
+				var offsetLeft = obj.offsetLeft;
+
+				speed += (dest - offsetLeft)/20;
+				speed*=0.9;
+
+				obj.style.left = `${offsetLeft + speed}px`;
+
+				if( obj.offsetLeft == dest ){
+					clearInterval(obj.timer);
+				}
+			},16)
+		}
+		var aLi = document.querySelectorAll('li');
+		var oSlider = document.querySelector('.slider');
+
+		aLi.forEach(function(oLi){
+			oLi.onmouseenter = function(){
+				elastic(oSlider,this.offsetLeft);
+			}
+
+			oLi.onmouseleave = function(){
+				elastic(oSlider,100);
+			}
+		})
+	</script>
+</body>
+</html>

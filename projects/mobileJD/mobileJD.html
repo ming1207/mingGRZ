@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<title>Document</title>
+	<style>
+		html{
+			font-size: 100px;
+			height: 100%;
+		}
+
+		body{
+			margin: 0;
+			font-size: 0.16rem;
+			height: 100%;
+		}
+
+		ul,li{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		header{
+			position: fixed;
+			width: 100%;
+			height: 0.4rem;
+			background-color: rgba(192,71,71,0);
+			display: flex;
+			align-items: center;
+			z-index: 9999;
+		}
+
+		.logo{
+			width: 0.6rem;
+			margin: 0.1rem;
+			line-height:0.4rem;
+			font-size:0.14rem;
+			color:#fff;
+		}
+
+		.logo > img{
+			width: 0.6rem;
+		}
+
+		.search{
+			flex: 1;
+			border: none;
+			height: 0.26rem;
+			border-radius: 0.13rem;
+			background: white;
+			padding: 0 0 0 0.1rem;
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+		}
+
+		.search > img{
+			width: 0.16rem;
+		}
+
+		.search > input{
+			outline: none;
+			flex: 1;
+			margin-left: 0.1rem;
+			border: none;
+		}
+
+		.login-btn{
+			margin: 0.1rem;
+			color: white;
+			font-weight: bolder;
+		}
+
+		/* enterances */
+		.enterances{
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.enterance{
+			flex:1;
+			min-width: 0.64rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			font-size: 0.12rem;
+			margin: 0.06rem 0;
+		}
+
+		.enterance > img{
+			width: 0.3rem;
+			margin-bottom: 0.06rem;
+		}
+
+		/*footer*/
+		.menu{
+			height: 0.5rem;
+			box-shadow: -0.03rem 0 0.1rem grey;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			display: flex;
+			background-color: white;
+		}
+
+		.menu-item{
+			flex: 1;
+		}
+
+		.menu-item > img{
+			width: 0.64rem;
+		}
+
+		.menu-item:nth-child(3) > img{
+			transform: translateY(-0.22rem);
+		}
+
+		/*cards*/
+		.cards{
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		.cards > img{
+			flex:1;
+			width: 1.6rem;
+		}
+
+		/*channel*/
+
+		.channels{
+			display: flex;
+			align-items: center;
+		}
+
+		.channels > img{
+			width: 0.8rem;
+		}
+
+		.space{
+			height: 0.5rem;
+		}
+
+		/*product-flow*/
+		.product-flow{
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			background-color: #D1D7DC;
+		}
+
+		.product-name{
+			margin:0.08rem 0.08rem;
+			display: block;
+			font-size: 0.12rem;
+		}
+
+		.product{
+			width: 1.58rem;
+			margin-top: 0.02rem;
+			margin-bottom: 0.02rem;
+			background-color: white;
+			padding:0.08rem 0;
+		}
+
+		.product:nth-child(2n-1){
+			margin-right: 0.02rem;
+		}
+
+		.product:nth-child(2n){
+			margin-left: 0.02rem;
+		}
+
+		.product > img{
+			width: 100%;
+		}
+
+		.info{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.button{
+			padding: 0.06rem;
+			border: 0.01rem solid black;
+			margin-right: 0.04rem;
+			border-radius: 0.02rem;
+			font-size: 0.12rem;
+		}
+
+		.price{
+			color: red;
+		}
+
+		/*ads*/
+		.ads{
+			display: flex;
+			padding: 0.05rem;
+			background:red;
+		}
+
+		.left,.right{
+			flex:1;
+		}
+
+		.left{
+			padding-right: 0.02rem;
+		}
+
+		.left > img,.right > img{
+			width: 100%;
+		}
+
+		/*slider*/
+		.slider{
+			width: 3.2rem;
+			height: 1.44rem;
+			overflow: hidden;
+		}
+
+		.slider > ul{
+			width: 19.2rem;
+			height: 1.44rem;
+			display: flex;
+			transform: translateX(-3.2rem);
+		}
+
+		.slider > ul > li{
+			width: 3.2rem;
+			height: 1.44rem;
+		}
+
+		.slider > ul > li > img{
+			width: 3.2rem;
+		}
+
+		/*container*/
+		.container{
+			height: 100%;
+			overflow: scroll;
+		}
+
+
+		.container::-webkit-scrollbar {
+		  display: none;
+		}
+	</style>
+</head>
+<body>
+	<!-- header -->
+	<header>
+		<div class="logo">
+			<h3>京东</h3>
+		</div>
+		<div class="search">
+			<img src="img/search.png" alt="">
+			<input type="text" placeholder="航和大区">
+		</div>
+		<span class="login-btn">登陆</span>
+	</header>
+	<!-- header-end -->
+
+	<div class="container">
+		<div class="wrapper">
+			<!-- slide -->
+			<div class="slider">
+				<ul>
+					<li>
+						<img src="img/slide_4.jpg" alt="">
+					</li>
+					<li>
+						<img src="img/slide_1.jpg" alt="">
+					</li>
+					<li>
+						<img src="img/slide_2.jpg" alt="">
+					</li>
+					<li>
+						<img src="img/slide_3.jpg" alt="">
+					</li>
+					<li>
+						<img src="img/slide_4.jpg" alt="">
+					</li>
+					<li>
+						<img src="img/slide_1.jpg" alt="">
+					</li>
+				</ul>
+			</div>
+			<!-- slide-end -->
+
+			<!-- enterance -->
+			<section class="enterances">
+				<div class="enterance">
+					<img src="img/cart.png" alt="">
+					<span>京东超市</span>
+				</div>
+				<div class="enterance">
+					<img src="img/world.png" alt="">
+					<span>全球购</span>
+				</div>
+				<div class="enterance">
+					<img src="img/cloth.png" alt="">
+					<span>服装城</span>
+				</div>
+				<div class="enterance">
+					<img src="img/fresh.png" alt="">
+					<span>京东生鲜</span>
+				</div>
+				<div class="enterance">
+					<img src="img/jingdong.png" alt="">
+					<span>京东到家</span>
+				</div>
+				<div class="enterance">
+					<img src="img/charge.png" alt="">
+					<span>充值中心</span>
+				</div>
+				<div class="enterance">
+					<img src="img/money.png" alt="">
+					<span>惠赚钱</span>
+				</div>
+				<div class="enterance">
+					<img src="img/coupon.png" alt="">
+					<span>领券</span>
+				</div>
+				<div class="enterance">
+					<img src="img/express.png" alt="">
+					<span>物流查询</span>
+				</div>
+				<div class="enterance">
+					<img src="img/heart.png" alt="">
+					<span>我的关注</span>
+				</div>
+			</section>
+			<!-- enterance-end -->
+
+			<!-- cards -->
+			<section class="cards">
+				<img src="img/card_1.jpg" alt="">
+				<img src="img/card_2.jpg" alt="">
+				<img src="img/card_3.jpg" alt="">
+				<img src="img/card_4.jpg" alt="">
+			</section>
+			<!-- cards-end -->
+
+			<!-- channels -->
+			<section class="channels">
+				<img src="img/channel_1.jpg" alt="">
+				<img src="img/channel_2.jpg" alt="">
+				<img src="img/channel_3.jpg" alt="">
+				<img src="img/channel_4.jpg" alt="">
+			</section>
+			<!-- channels-end -->
+
+			<!-- ads -->
+			<section class="ads">
+				<div class="left">
+					<img src="img/ad_big.jpg" alt="">
+				</div>
+				<div class="right">
+					<img src="img/ad_little_1.jpg" alt="">
+					<img src="img/ad_little_2.jpg" alt="">
+				</div>
+			</section>
+			<!-- ads-end -->
+
+			<!-- product-flow -->
+			<section class="product-flow">
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+				<div class="product">
+					<img src="img/product.jpg" alt="">
+					<span class="product-name">这是去年买的个表,这是去年买的个表</span>
+					<div class="info">
+						<div class="price">￥19.9</div>
+						<div class="button">
+							看相似
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- product-flow-end -->
+
+			<div class="space"></div>
+			<!-- footer -->
+			<footer class="menu">
+				<div class="menu-item">
+					<img src="img/menu_1.png" alt="">
+				</div>
+				<div class="menu-item">
+					<img src="img/menu_2.png" alt="">
+				</div>
+				<div class="menu-item">
+					<img src="img/menu_3.png" alt="">
+				</div>
+				<div class="menu-item">
+					<img src="img/menu_4.png" alt="">
+				</div>
+				<div class="menu-item">
+					<img src="img/menu_5.png" alt="">
+				</div>
+			</footer>
+			<!-- footer-end	 -->
+		</div>
+	</div>
+	<script>
+		var aLi = document.querySelectorAll('.slider li');
+		var oUl = document.querySelector('.slider ul');
+		var oContainer = document.querySelector('.container');
+		var header = document.querySelector('header');
+		var oWrapper = document.querySelector('.wrapper');
+		var currentIndex = 0;
+		var bReady = true;
+		var doc = document.documentElement;
+		function resize(){
+			doc.style.fontSize = doc.clientWidth/320*100 + 'px';
+		}
+
+		window.addEventListener('resize',resize,false)
+
+		resize();
+		var vw = aLi[0].offsetWidth;
+
+		oUl.addEventListener('touchstart',function(ev){
+
+			// 控制频率
+			if( !bReady ) return;
+			bReady = false;
+
+			oUl.style.transition = '0s';
+
+			var startX = ev.targetTouches[0].clientX;
+			var disX = startX - (oUl.dataset.left || -vw);
+
+			oUl.addEventListener('touchmove',fnMove,false);
+			oUl.addEventListener('touchend',fnEnd,false);
+
+			function fnMove(ev){
+				var deltaX = ev.targetTouches[0].clientX - disX;
+
+				oUl.dataset.left = deltaX;
+
+				oUl.style.transform = `translateX(${deltaX}px)`;
+
+				ev.preventDefault();
+			}
+
+			function fnEnd(ev){
+				var endX = ev.changedTouches[0].clientX;
+				var deltaX = endX - startX;
+
+				// 拖拽距离是否可以切换
+				if(Math.abs(deltaX) > vw/4){
+					
+					oUl.style.transition = '0.3s';
+
+					//判断正负确定切换方向
+					if( deltaX > 0 ){
+						currentIndex--
+
+						if( currentIndex < 0 ){
+							currentIndex = 0;
+						}
+					} else {
+						currentIndex++
+
+						if( currentIndex > aLi.length - 1 ){
+							currentIndex =  aLi.length - 1;
+						}
+					}
+
+					setPosition();
+				} else {
+
+					// 不切换
+					oUl.style.transition = '0.3s';
+					setPosition();
+				}
+
+				oUl.removeEventListener('touchmove',fnMove,false);
+				oUl.removeEventListener('touchend',fnEnd,false);
+			}
+		},false)
+
+		// 播放完毕之后判断currentIndex，是否拉回
+		oUl.addEventListener('transitionend',function(){
+			if( currentIndex == 0 ){
+				currentIndex = aLi.length - 2
+			} else if( currentIndex == aLi.length - 1 ){
+				currentIndex = 1
+			}
+
+			oUl.style.transition = '0s';
+			setPosition();
+
+			bReady = true;
+		},false)
+
+		function setPosition(){
+			var translate = -currentIndex*vw;
+			oUl.style.transform = `translateX(${translate}px)`
+			oUl.dataset.left = translate;
+		}
+
+		oContainer.onscroll = function(){
+			header.style.backgroundColor = `rgba(192,71,71,${oContainer.scrollTop/300})`
+		}
+	</script>
+</body>
+</html>

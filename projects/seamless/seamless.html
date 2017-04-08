@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>seamless</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body{
+            background:black;
+        }
+        #box {
+            position: relative;
+            width: 880px;
+            height: 220px;
+            
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #box ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #box ul li {
+            width: 200px;
+            height: 200px;
+            padding: 10px;
+            float: left;
+        }
+        #box ul li img {
+            width: 200px;
+            height: 200px;
+        }
+        #box span {
+            position: absolute;
+            width: 440px;
+            height: 220px;
+            z-index: 2;
+        }
+        #box .left {
+            left: 0;
+        }
+        #box .right {
+            right: 0;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oBox = document.getElementById('box');
+            var oUl = oBox.children[0];
+            var aLi = oUl.children;
+            var oLeft = oBox.children[1];
+            var oRight = oBox.children[2];
+            var timer = null;
+
+            // 内容复制一份
+            oUl.innerHTML += oUl.innerHTML;
+            // 重新计算宽度
+            oUl.style.width = aLi[0].offsetWidth * aLi.length + 'px';
+            oLeft.onmouseover = function() {
+                toLeft();
+            };
+            oRight.onmouseover = function() {
+                toRight();
+            };
+            toRight();
+            var left = 0;
+            var W = oUl.offsetWidth/2;
+            function toRight() {
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    left += 5;
+                    oUl.style.left = (left%W-W)%W + 'px';
+                },30);
+            }
+
+            function toLeft() {
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    left -= 5;
+                    if (left < 0) {
+                        oUl.style.left = left%W + 'px';
+                    } else {
+                        oUl.style.left = (left%W-W)%W + 'px';
+                    }
+                },30);
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li><img src="cat/1.jpg" alt=""></li>
+            <li><img src="cat/2.jpg" alt=""></li>
+            <li><img src="cat/3.jpg" alt=""></li>
+            <li><img src="cat/4.jpg" alt=""></li>
+        </ul>
+        <span class="left"></span>
+        <span class="right"></span>
+    </div>
+</body>
+</html>

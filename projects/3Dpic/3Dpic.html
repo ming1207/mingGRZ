@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	body{margin:0;background-color:black;}
+	.container{
+		height:150px;
+		width:100px;
+		position:relative;
+		margin:200px auto;
+		transform-style:preserve-3d;
+		perspective:2000px;
+		transform:rotateX(-10deg);
+	}
+	.card{
+		height:150px;
+		width:100px;
+		position:absolute;
+		top:0;left:0;
+		background-size:cover;
+		border-radius:10px;
+		box-shadow:0 0 10px gray;
+	}
+	.shadow{
+		height:150px;
+		width:100px;
+		position:absolute;
+		left:0;top:160px;
+		background-size:cover;
+		border-radius:10px;
+		box-shadow:0 0 10px gray;
+		transform:scale(1,-1);
+		-webkit-mask:linear-gradient(rgba(0,0,0,0) 60%,rgba(0,0,0,0.7) );
+	}
+	</style>
+</head>
+<body>
+	<div class="container"></div>
+	<script>
+		var oC=document.querySelector('.container');
+		var amount=10;
+		var lastXSpeed=0;
+		var lastYSpeed=0;
+		var speedX=0;
+		var speedY=0;
+		var timer=null;
+		for(var i=0;i<amount;i++){
+			var oDiv=document.createElement('div');
+			var oSpan=document.createElement('span');
+			oSpan.classList.add('shadow')
+			oDiv.classList.add('card');
+			oDiv.style.backgroundImage=`url(img/cat${i+1}.jpg)`;
+			oSpan.style.backgroundImage=`url(img/cat${i+1}.jpg)`;
+
+			oDiv.style.transition=`0.7s ${(amount-i)*0.3}s`;
+			(function(oDiv,index){
+				setTimeout(function(){
+					oDiv.style.transform=`rotateY(${index*36}deg) translateZ(300px)`;
+				})
+			})(oDiv,i)
+			oDiv.appendChild(oSpan);
+			oC.appendChild(oDiv);
+		}
+		var aCard=document.querySelectorAll('.card');
+		aCard[0].addEventListener('transitionend',function(){
+			aCard.forEach(function(oCard,index){
+				oCard.style.transition='0.5s';
+				oCard.style.opacity=Math.abs(index*36-180)/180+0.3;
+			})
+		},false);
+		var rotateXdegree=0;
+		var rotateYdegree=10;
+		document.onmousedown=function({
+			clientX,clientY
+		}){
+			clearInterval(timer);
+			clearTransition();
+			var disX=clientX-rotateXdegree*4;
+			var disY=clientY-rotateYdegree*4;
+			document.onmousemove=function({
+			clientX,clientY
+		}){
+			var deltaX=clientX-disX;
+			var deltaY=clientY-disY;
+			rotateXdegree=deltaX*0.25;
+			rotateYdegree=deltaY*0.25;
+			speedX=rotateXdegree-lastXSpeed;
+			speedY=rotateYdegree-lastYSpeed;
+			lastXSpeed=rotateXdegree;
+			lastYSpeed=rotateYdegree;
+			setPos();
+			}
+			document.onmouseup=function(){
+				document.onmouseup=null;
+				document.onmousemove=null;
+				timer=setInterval(function(){
+					rotateXdegree+=speedX;
+					rotateYdegree+=speedY;
+					speedX*=0.95;
+					speedY*=0.95;
+					setPos();
+				},16)
+			}
+		}
+		function setPos(){
+			aCard.forEach(function(oCard,index){
+				oCard.style.transform=`rotateY(${index*36+rotateXdegree}deg) translateZ(300px)`;
+				oCard.style.opacity=Math.abs(Math.abs(index*36+rotateXdegree)%360-180)/180+0.3;
+				oC.style.transform=`rotateX(${-rotateYdegree}deg)`;
+			})
+		}
+		function clearTransition(){
+			aCard.forEach(function(oCard,index){
+				oCard.style.transition=`0s`;
+			})
+		}
+		aCard.forEach(function(oCard){
+			oCard.onmousedown=function(ev){
+				ev.preventDefault();
+			}
+		})
+	</script>
+</body>
+</html>

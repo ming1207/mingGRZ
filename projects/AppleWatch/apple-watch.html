@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		
+		body{
+			margin: 0;
+			font-size: 0;
+			/* //background-color: black; */
+		}
+
+		canvas{
+			/*background-color: white;*/
+			margin: 0 auto;
+			display: block;
+			background-color: black;
+		}
+
+		/*
+			#CE1049
+			#7FF0EF
+			#A9FF0A
+		*/
+	</style>
+</head>
+<body>
+	<canvas width="400" height="600"></canvas>
+	<script>
+		const oC = document.querySelector('canvas');
+		const ctx = oC.getContext('2d');
+		const offset = -Math.PI/2;
+
+		ctx.lineWidth = 20;
+		ctx.lineCap = 'round';
+		ctx.textAlign = 'center';
+
+		setInterval(() => {
+			ctx.clearRect(0,0,oC.width,oC.height);
+
+			ctx.font = "20px a";
+			ctx.fillStyle = 'white';
+			ctx.fillText('Apple Watch',200,430);
+
+			const date = new Date();
+
+			const hour = date.getHours();
+			const minute = date.getMinutes();
+			const second = date.getSeconds();
+			const millisecond = date.getMilliseconds();
+
+			/*ctx.fillText(`${
+				addZero(hour)
+			}:${
+				addZero(minute)
+			}:${
+				addZero(second)
+			}`,200,390);*/
+
+			ctx.fillText(`${
+				hour/12 >= 1 ? "PM" : 'AM'
+			} - ${
+				addZero(hour%12)
+			}:${
+				addZero(minute)
+			}:${
+				addZero(second)
+			}`,200,390);
+
+
+			// 秒针
+			ctx.beginPath();
+			ctx.arc(
+				200,200,100,offset,
+				((second+millisecond/1000)/60)*2*Math.PI+offset
+			);
+
+			ctx.strokeStyle = "#7FF0EF";
+			ctx.stroke();
+
+			// 分针
+			ctx.beginPath();
+			ctx.arc(
+				200,200,76,offset,
+				((minute+second/60)/60)*2*Math.PI+offset
+			);
+			ctx.strokeStyle = "#A9FF0A";
+			ctx.stroke();
+
+			// 时针
+			ctx.beginPath();
+			ctx.arc(
+				200,200,52,offset,
+				((hour+minute/60)%12/12)*2*Math.PI+offset
+			);
+			ctx.strokeStyle = "#CE1049";
+			ctx.stroke();
+		},16)
+
+		function addZero(number){
+			return number > 9 ? number : "0"+number;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<div id="app">
+		<header>
+			<h1>老司机的个人博客</h1>
+			<div v-if="!logged">
+				<span @click="showLoginModal" class="login">
+					登陆
+				</span>|
+				<span @click="showRegisterModal" class="register">
+					注册
+				</span>	
+			</div>
+			<div v-else="!logged">
+				<span class="logged">您已登录为{{ username }}</span>
+				<span class="logout" @click="logout">Logout</span>
+			</div>
+		</header>
+		<div 
+			class="article-list" 
+			>
+			<ul>
+				<li v-for="info in articles">
+					<a href="javascript:;" @click="gotoDetail(info.id)">
+						<h2 class="article-title">{{ info.title }}</h2>
+					</a>
+						<span class="desc">本文章写于{{ info.create_time }} 最后一次修改时间为{{ info.modify_time }}</span>
+						<p>{{ info.desc }}</p>
+				</li>
+			</ul>
+		</div>
+
+		<div class="page-index">
+			<span v-if="index>0" class="previous">上一页</span>	
+			<span v-if="index>0">|</span>
+			<span class="next">下一页</span>	
+		</div>
+
+		<!-- 登陆框 -->
+		<div class="login-model" v-show="loginModel">
+			<div class="inner">
+				<div class="close" @click="loginModel=false">x</div>
+				<div class="row">
+					<label for="username">用户名</label>
+					<input type="text" id="username" v-model="loginUsername">
+				</div>
+				<div class="row">
+					<label for="password">密&nbsp;&nbsp;&nbsp;码</label>
+					<input type="password" id="password" v-model="loginPassword">
+				</div>
+				<div class="login-btn" @click="login">
+					登陆
+				</div>
+			</div>
+		</div>
+
+		<!-- 注册框 -->
+		<div class="register-model" v-show="registerModel">
+			<div class="inner">
+				<div class="close" @click="registerModel=false">x</div>
+				<div class="row">
+					<label for="username">用户名</label>
+					<input type="text" id="username" v-model="registerUsername">
+				</div>
+				<div class="row">
+					<label for="password">密&nbsp;&nbsp;&nbsp;码</label>
+					<input type="password" id="password" v-model="registerPassword">
+				</div>
+				<div class="row">
+					<label for="captcha">验证码</label>
+					<input type="text" id="captcha" v-model="captcha">
+					<button @click="getCaptcha">获取</button>
+				</div>
+				<div class="register-btn" @click="register">
+					注册
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+	<script>
+		new Vue({
+			el:'#app',
+			data:{
+				articles:[],
+				index:0,
+				loginModel:false,
+				registerModel:false,
+				loginUsername:'',
+				loginPassword:'',
+				registerUsername:'',
+				registerPassword:'',
+				captcha:'',
+				logged:localStorage.username?true:false,
+				username:localStorage.username || ''
+			},
+			methods:{
+				showLoginModal(){
+					this.loginModel = true;
+				},
+				showRegisterModal(){
+					this.registerModel = true;
+				},
+				// 登陆
+				login(){
+					const {
+						loginUsername,
+						loginPassword
+					} = this;
+
+					if( 
+						!loginUsername || 
+						!loginPassword 
+					){
+						alert("用户名与密码都不得为空");
+						return;
+					}
+
+					fetch(`/user/login?username=${
+						loginUsername
+					}&password=${ 
+						loginPassword
+					}`)
+					.then(res => res.json())
+					.then(res => {
+						if( res.errCode ){
+							alert(res.msg);
+							return;
+						}
+
+						localStorage.username = loginUsername;
+						this.username = this.loginUsername;
+						this.logged = true;
+						this.loginModel = false;
+					})
+				},
+				logout(){
+					delete localStorage.username;
+					this.username = '';
+					this.logged = false;
+				},
+				getCaptcha(){
+					fetch('/user/getCaptcha')
+					.then(res => res.json())
+					.then(({data}) => {
+						this.captchaId = data.captchaId;
+					})
+				},
+				register(){
+					const {
+						registerUsername,
+						registerPassword,
+						captcha,
+						captchaId
+					} = this;
+
+					if( 
+						!registerUsername ||
+						!registerPassword||
+						!captcha ||
+						!captchaId
+					){
+						alert('以上四项都不能为空');
+						return;
+					}
+
+					fetch(`/user/register?username=${
+						registerUsername
+					}&password=${
+						registerPassword
+					}&captcha=${
+						captcha
+					}&captchaId=${
+						captchaId
+					}`)
+					.then(res => res.json())
+					.then(res => {
+						if( res.errCode ){
+							alert(res.msg);
+							return
+						}
+
+						this.loginUsername = registerUsername;
+						this.loginPassword = registerPassword;
+						this.login();
+						this.registerModel = false;
+					})
+				},
+
+				gotoDetail(id){
+					window.location.href = `http://localhost:8787/details.html?id=${id}`;
+				}
+			},
+			mounted:function(){
+				fetch(`/article/list?page=${this.index}`)
+				.then(res => res.json())
+				.then(({data}) => {
+					this.articles = data;
+				})
+			}
+		})
+	</script>
+</body>
+</html>
+
+

@@ -1,0 +1,117 @@
+.page3 {
+ 
+    background:url(../images/333b.jpg);
+    
+    background-image: url('../images/bg.jpg');
+    background-image:-webkit-linear-gradient(0deg, #000428 0%, #004e92 100%);
+    background:black;
+}
+/*设置 字体*/
+.page3 p{
+    letter-spacing: 7px;
+    font-size:40px;
+    transition:0.7s;
+    padding-top: 130px;
+}
+.page3 p:hover{
+    letter-spacing: 15px;
+    transition:0.7s
+}
+
+
+/*技能*/
+.page3>.skills{
+    width:80%;
+    margin:0 auto;
+    height:287px;
+    margin-top:80px;
+    display:flex;
+    
+}
+
+.page3 .skills canvas{
+    display: block;
+    margin: 0 auto;
+}
+
+.skills>div{
+    width:20%;
+    height: 260px;
+    cursor: pointer;
+
+}
+.skill_front:hover{
+    background:black;
+    opacity:0.4 ;
+    border-radius:10px;}
+.page3 .skills .skill_percent{
+    font-size:20px;
+    line-height: 60px;
+    color:red;
+    font-weight: bold;
+    text-align:center;
+    margin-top: 15px;
+}
+
+.page3 .skills .skill_name{
+    line-height: 139px;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    font-style: normal;
+    border-radius: 50%;
+    transition:1s;
+    margin-top: 60px;
+
+}
+
+/*技能 翻牌子 start*/
+.skill_front_back{
+    position: relative;
+    color: #fff;
+}
+.skill_front,.skill_back{
+    width:100%;
+    height: 260px;
+    position: absolute;
+    transition: all 1s ease-in-out;
+    /* 过渡的效果 */
+    backface-visibility: hidden;
+    /* 隐藏被旋转元素的背面 */
+
+}
+.skill_front {
+    z-index: 2;
+    transform: rotateY(0);
+}
+
+.skill_back {
+    padding:10px;
+    background:#8cea05;
+    width:230px;
+    color:black;
+    z-index: 2;
+    transform: rotateY(180deg);
+    border-radius:10px;
+        
+}
+.skill_back>h2{
+    font-size:14px;
+    text-align:left;
+    font-weight:normal;
+    line-height:25px;
+}
+.skill_back>h1{
+    text-align:center;
+    font-size:20px;
+    margin:10px;
+}
+.skill_front_back:hover .skill_front {
+    transform: rotateY(180deg);
+}
+.skill_front_back:hover .skill_back {
+    transform: rotateY(360deg);
+}
+/*end*/
+
+
